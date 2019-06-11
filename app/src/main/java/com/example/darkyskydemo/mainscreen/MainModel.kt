@@ -11,6 +11,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainModel : MainContract.Model {
+
     override fun getData(onFinishedListener: MainContract.Model.OnFinishedListener) {
 
         val apiService = ApiClient.client!!.create(ApiInterface::class.java)
@@ -28,6 +29,10 @@ class MainModel : MainContract.Model {
 
         })
     }
+    override fun getDailyData() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 
 
 }

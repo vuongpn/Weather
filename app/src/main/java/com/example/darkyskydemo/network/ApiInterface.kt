@@ -13,4 +13,5 @@ interface ApiInterface {
         @Path("latitude") latitude: Double,
         @Path("longtitude") longtitude: Double
     ): Call<Weather>
+
 }
