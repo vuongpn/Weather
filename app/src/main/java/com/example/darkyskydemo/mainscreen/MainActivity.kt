@@ -1,6 +1,7 @@
 package com.example.darkyskydemo.mainscreen
 
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import android.widget.Toast
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var tv8: TextView
     private lateinit var tv9: TextView
     private lateinit var tv10: TextView
+    private lateinit var layout: SwipeRefreshLayout
     private var presenter: MainPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter!!.requestData()
     }
 
-    fun initUI() {
+    private fun initUI() {
         tv1 = findViewById(R.id.forecastCurrentTemperatureTxt)
         tv2 = findViewById(R.id.humidiyTxt)
         tv3 = findViewById(R.id.dewPointTxt)
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         tv8 = findViewById(R.id.forecastSummaryTxt)
         tv9 = findViewById(R.id.localityNameTxt)
         tv10 = findViewById(R.id.localityTimeTxt)
+        layout = findViewById(R.id.swiperefresh)
     }
 
     override fun onFailure(t: Throwable) {
@@ -50,7 +53,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun onSucess(weather: Weather) {
         val celcius = ((weather.currently!!.temperature!! - 32) / 1.8)
             .toInt().toString() + "°C"
-        val date= Date(weather.currently!!.time!! * 1000)
+        val date = Date(weather.currently!!.time!! * 1000)
         tv1.text = celcius
         tv2.text = weather.currently!!.humidity.toString()
         tv3.text = weather.currently!!.dewPoint.toString()
@@ -62,6 +65,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         tv8.text = weather.currently!!.summary
         tv9.text = weather.timezone
         tv10.text = date.toString()
+        layout.setOnRefreshListener {
+            presenter!!.requestData()
+            if(layout.isRefreshing()){
+                layout.isRefreshing = false
+            }
+        }
     }
 
 }
