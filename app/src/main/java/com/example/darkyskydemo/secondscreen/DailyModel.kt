@@ -23,7 +23,6 @@ class DailyModel:DailyContract.Model {
                val dailyList= response.body()!!.daily!!.data
                 OnFinishedListener.onSuccess(dailyList!!)
             }
-
         })
     }
 }
