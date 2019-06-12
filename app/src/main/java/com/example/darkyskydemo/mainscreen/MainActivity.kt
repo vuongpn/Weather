@@ -1,12 +1,14 @@
 package com.example.darkyskydemo.mainscreen
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import android.widget.Toast
-import com.example.darkyskydemo.R
 import com.example.darkyskydemo.model.Weather
+import com.example.darkyskydemo.secondscreen.DailyActivity
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -26,28 +28,28 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.mainscreen)
+        setContentView(com.example.darkyskydemo.R.layout.mainscreen)
         initUI()
         presenter = MainPresenter(this)
         presenter!!.requestData()
     }
 
     private fun initUI() {
-        tv1 = findViewById(R.id.forecastCurrentTemperatureTxt)
-        tv2 = findViewById(R.id.humidiyTxt)
-        tv3 = findViewById(R.id.dewPointTxt)
-        tv4 = findViewById(R.id.pressureTtxt)
-        tv5 = findViewById(R.id.windSpeedTxt)
-        tv6 = findViewById(R.id.uvIndexTxt)
-        tv7 = findViewById(R.id.chanceOfRainTtxt)
-        tv8 = findViewById(R.id.forecastSummaryTxt)
-        tv9 = findViewById(R.id.localityNameTxt)
-        tv10 = findViewById(R.id.localityTimeTxt)
-        layout = findViewById(R.id.swiperefresh)
+        tv1 = findViewById(com.example.darkyskydemo.R.id.forecastCurrentTemperatureTxt)
+        tv2 = findViewById(com.example.darkyskydemo.R.id.humidiyTxt)
+        tv3 = findViewById(com.example.darkyskydemo.R.id.dewPointTxt)
+        tv4 = findViewById(com.example.darkyskydemo.R.id.pressureTtxt)
+        tv5 = findViewById(com.example.darkyskydemo.R.id.windSpeedTxt)
+        tv6 = findViewById(com.example.darkyskydemo.R.id.uvIndexTxt)
+        tv7 = findViewById(com.example.darkyskydemo.R.id.chanceOfRainTtxt)
+        tv8 = findViewById(com.example.darkyskydemo.R.id.forecastSummaryTxt)
+        tv9 = findViewById(com.example.darkyskydemo.R.id.localityNameTxt)
+        tv10 = findViewById(com.example.darkyskydemo.R.id.localityTimeTxt)
+        layout = findViewById(com.example.darkyskydemo.R.id.swiperefresh)
     }
 
     override fun onFailure(t: Throwable) {
-        Toast.makeText(this, "error", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
     }
 
     override fun onSucess(weather: Weather) {
@@ -55,6 +57,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             .toInt().toString() + "°C"
         val date = Date(weather.currently!!.time!! * 1000)
         tv1.text = celcius
+        tv1.setOnClickListener {
+            val i = Intent(this, DailyActivity::class.java)
+            startActivity(i)
+        }
         tv2.text = weather.currently!!.humidity.toString()
         tv3.text = weather.currently!!.dewPoint.toString()
         tv4.text = weather.currently!!.pressure.toString()
@@ -64,10 +70,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             .toDouble().toString()
         tv8.text = weather.currently!!.summary
         tv9.text = weather.timezone
-        tv10.text = date.toString()
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.US)
+        val formattedDate = dateFormat.format(date)
+        tv10.text = formattedDate
         layout.setOnRefreshListener {
             presenter!!.requestData()
-            if(layout.isRefreshing()){
+            if (layout.isRefreshing()) {
                 layout.isRefreshing = false
             }
         }
