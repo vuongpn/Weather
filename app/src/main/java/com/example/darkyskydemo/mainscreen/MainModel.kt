@@ -29,10 +29,4 @@ class MainModel : MainContract.Model {
 
         })
     }
-    override fun getDailyData() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-
-
 }

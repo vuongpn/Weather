@@ -16,7 +16,6 @@ interface MainContract {
         }
 
         fun getData(onFinishedListener: OnFinishedListener)
-        fun getDailyData()
     }
 
     interface Presenter {
