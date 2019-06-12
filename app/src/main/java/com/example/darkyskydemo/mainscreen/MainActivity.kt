@@ -1,6 +1,7 @@
 package com.example.darkyskydemo.mainscreen
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
