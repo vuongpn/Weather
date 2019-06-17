@@ -1,12 +1,12 @@
 package com.example.darkyskydemo.mainscreen
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import android.widget.Toast
+import com.example.darkyskydemo.R
 import com.example.darkyskydemo.model.Weather
 import com.example.darkyskydemo.secondscreen.DailyActivity
 import java.text.SimpleDateFormat
@@ -55,7 +55,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onSucess(weather: Weather) {
         val celcius = ((weather.currently!!.temperature!! - 32) / 1.8)
-            .toInt().toString() + "°C"
+            .toInt().toString() +
+                resources.getString(R.string.doC)
         val date = Date(weather.currently!!.time!! * 1000)
         tv1.text = celcius
         tv1.setOnClickListener {
@@ -76,7 +77,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         tv10.text = formattedDate
         layout.setOnRefreshListener {
             presenter!!.requestData()
-            if (layout.isRefreshing()) {
+            if (layout.isRefreshing) {
                 layout.isRefreshing = false
             }
         }

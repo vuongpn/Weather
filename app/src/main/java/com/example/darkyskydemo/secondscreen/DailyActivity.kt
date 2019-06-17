@@ -2,6 +2,8 @@ package com.example.darkyskydemo.secondscreen
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
@@ -24,6 +26,9 @@ class DailyActivity : AppCompatActivity(),DailyContract.View{
     fun initUI(){
         val rv=findViewById<RecyclerView>(R.id.rv_daily)
         adapter= DailyAdapter()
+        val divider=DividerItemDecoration(this,DividerItemDecoration.VERTICAL)
+        divider.setDrawable(ContextCompat.getDrawable(this,R.drawable.divider)!!)
+        rv.addItemDecoration(divider)
         rv.layoutManager=LinearLayoutManager(this)
         rv.adapter=adapter
     }
