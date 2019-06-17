@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.example.darkyskydemo.R
 import com.example.darkyskydemo.model.Datum__
@@ -25,7 +26,7 @@ class DailyAdapter : RecyclerView.Adapter<DailyAdapter.MyViewHolder>() {
     override fun onBindViewHolder(p0: MyViewHolder, p1: Int) {
         val days = dailyList[p1]
         p0.bindData(days)
-
+        p0.bindImage(days)
     }
 
     fun setDay(daily: List<Datum__>) {
@@ -39,6 +40,7 @@ class DailyAdapter : RecyclerView.Adapter<DailyAdapter.MyViewHolder>() {
         private val tempMin: TextView = itemView.findViewById(R.id.tv_temperature_min)
         private val summary: TextView = itemView.findViewById(R.id.tv_summary)
         private val time: TextView = itemView.findViewById(R.id.tv_time)
+        private val image:ImageView=itemView.findViewById(R.id.iv_day)
         fun bindData(days: Datum__) {
             val date = Date(days.time!! * 1000)
             val celciusMax = ((days.temperatureMax!! - 32) / 1.8).toInt().toString() +"°C"
@@ -49,6 +51,19 @@ class DailyAdapter : RecyclerView.Adapter<DailyAdapter.MyViewHolder>() {
             val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.US)
             val formattedDate = dateFormat.format(date)
             time.text = formattedDate.toString()
+        }
+        fun bindImage(days: Datum__){
+            if(summary.text.toString().contains("cloudy")){
+             image.setImageResource(R.drawable.cloudy_icon)
+            }
+
+            if(summary.text.toString().contains("rain")){
+                image.setImageResource(R.drawable.rain_icon)
+            }
+
+            if(summary.text.toString().contains("sun")){
+                image.setImageResource(R.drawable.clear_day_icon)
+            }
         }
     }
 }

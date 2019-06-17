@@ -26,6 +26,9 @@
                 android:id="@+id/forecastLayout">
 
             <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/query"/>
+            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/localityNameTxt"
@@ -63,7 +66,6 @@
                     android:id="@+id/constraintLayout">
 
                 <ImageView
-                        android:src="@drawable/clear_day_icon"
                         android:layout_width="85dp"
                         android:layout_height="85dp"
                         android:id="@+id/forecastIcon"

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
+import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.darkyskydemo.R
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var tv9: TextView
     private lateinit var tv10: TextView
     private lateinit var layout: SwipeRefreshLayout
+    private lateinit var image: ImageView
     private var presenter: MainPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +50,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         tv9 = findViewById(com.example.darkyskydemo.R.id.localityNameTxt)
         tv10 = findViewById(com.example.darkyskydemo.R.id.localityTimeTxt)
         layout = findViewById(com.example.darkyskydemo.R.id.swiperefresh)
+        image = findViewById(R.id.forecastIcon)
     }
 
     override fun onFailure(t: Throwable) {
@@ -60,7 +64,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         val date = Date(weather.currently!!.time!! * 1000)
         tv1.text = celcius
         tv1.setOnClickListener {
-            val i = Intent(this, DailyActivity::class.java)
+            val i=Intent(this,DailyActivity::class.java)
             startActivity(i)
         }
         tv2.text = weather.currently!!.humidity.toString()
@@ -80,6 +84,19 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             if (layout.isRefreshing) {
                 layout.isRefreshing = false
             }
+        }
+        setImage()
+    }
+
+    private fun setImage() {
+        if (tv8.text.toString().contains("Rain")) {
+            image.setImageResource(R.drawable.rain_icon)
+        }
+        if (tv8.text.toString().contains("Sun")) {
+            image.setImageResource(R.drawable.clear_day_icon)
+        }
+        if (tv8.text.toString().contains("Cloud")) {
+            image.setImageResource(R.drawable.cloudy_icon)
         }
     }
 
