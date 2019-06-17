@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.example.darkyskydemo.R
 import com.example.darkyskydemo.model.Datum__
@@ -23,7 +24,7 @@ class DailyAdapter:RecyclerView.Adapter<DailyAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(p0: MyViewHolder, p1: Int) {
        val days=dailyList[p1]
-        p0.bindData(days,p1)
+        p0.bindData(days)
 
     }
 
@@ -38,7 +39,7 @@ class DailyAdapter:RecyclerView.Adapter<DailyAdapter.MyViewHolder>() {
         private val tempMin:TextView=itemView.findViewById(R.id.tv_temperature_min)
         private val summary:TextView=itemView.findViewById(R.id.tv_summary)
         private val time:TextView=itemView.findViewById(R.id.tv_time)
-        fun bindData(days:Datum__,position:Int){
+        fun bindData(days:Datum__){
             val date=Date(days.time!! *1000)
             tempMin.text= days.temperatureMin.toString()
             tempMax.text=days.temperatureMax.toString()

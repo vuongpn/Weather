@@ -4,9 +4,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    const val API_KEY = "984d7457ecd1924ea3401a96fc276b39"
-    const val latitude = 42.3601
-    const val longtitude = -71.0589
+    const val API_KEY = "c80337143656a0bd04d334e09dd5d5d7"
+    const val latitude = 16.047079
+    const val longtitude = 108.206230
     private val BASE_URL = "https://api.darksky.net/"
     private var retrofit: Retrofit? = null
 

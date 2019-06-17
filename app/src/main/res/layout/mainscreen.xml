@@ -79,7 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/forecastSummaryTxt"
-                        android:textSize="30sp"
+                        android:textSize="20sp"
                         android:textAlignment="textStart"
                         android:textColor="@color/text"
                         android:layout_marginTop="8dp"
