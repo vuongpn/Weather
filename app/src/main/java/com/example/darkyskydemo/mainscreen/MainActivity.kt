@@ -1,6 +1,8 @@
 package com.example.darkyskydemo.mainscreen
 
+import android.content.Context
 import android.content.Intent
+import android.location.LocationManager
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.darkyskydemo.R
 import com.example.darkyskydemo.model.Weather
+import com.example.darkyskydemo.network.GPSTracker
 import com.example.darkyskydemo.secondscreen.DailyActivity
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,6 +31,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var tv10: TextView
     private lateinit var layout: SwipeRefreshLayout
     private lateinit var image: ImageView
+    private lateinit var currentimg:ImageView
     private var presenter: MainPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,18 +43,19 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     private fun initUI() {
-        tv1 = findViewById(com.example.darkyskydemo.R.id.forecastCurrentTemperatureTxt)
-        tv2 = findViewById(com.example.darkyskydemo.R.id.humidiyTxt)
-        tv3 = findViewById(com.example.darkyskydemo.R.id.dewPointTxt)
-        tv4 = findViewById(com.example.darkyskydemo.R.id.pressureTtxt)
-        tv5 = findViewById(com.example.darkyskydemo.R.id.windSpeedTxt)
-        tv6 = findViewById(com.example.darkyskydemo.R.id.uvIndexTxt)
-        tv7 = findViewById(com.example.darkyskydemo.R.id.chanceOfRainTtxt)
-        tv8 = findViewById(com.example.darkyskydemo.R.id.forecastSummaryTxt)
-        tv9 = findViewById(com.example.darkyskydemo.R.id.localityNameTxt)
-        tv10 = findViewById(com.example.darkyskydemo.R.id.localityTimeTxt)
-        layout = findViewById(com.example.darkyskydemo.R.id.swiperefresh)
+        tv1 = findViewById(R.id.forecastCurrentTemperatureTxt)
+        tv2 = findViewById(R.id.humidiyTxt)
+        tv3 = findViewById(R.id.dewPointTxt)
+        tv4 = findViewById(R.id.pressureTtxt)
+        tv5 = findViewById(R.id.windSpeedTxt)
+        tv6 = findViewById(R.id.uvIndexTxt)
+        tv7 = findViewById(R.id.chanceOfRainTtxt)
+        tv8 = findViewById(R.id.forecastSummaryTxt)
+        tv9 = findViewById(R.id.localityNameTxt)
+        tv10 = findViewById(R.id.localityTimeTxt)
+        layout = findViewById(R.id.swiperefresh)
         image = findViewById(R.id.forecastIcon)
+        currentimg=findViewById(R.id.img)
     }
 
     override fun onFailure(t: Throwable) {
@@ -96,6 +101,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             image.setImageResource(R.drawable.clear_day_icon)
         }
         if (tv8.text.toString().contains("Cloud")) {
+            image.setImageResource(R.drawable.cloudy_icon)
+        }
+        if (tv8.text.toString().contains("Overcast")) {
             image.setImageResource(R.drawable.cloudy_icon)
         }
     }

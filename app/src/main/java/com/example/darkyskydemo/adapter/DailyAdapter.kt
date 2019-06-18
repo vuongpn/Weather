@@ -26,7 +26,7 @@ class DailyAdapter : RecyclerView.Adapter<DailyAdapter.MyViewHolder>() {
     override fun onBindViewHolder(p0: MyViewHolder, p1: Int) {
         val days = dailyList[p1]
         p0.bindData(days)
-        p0.bindImage(days)
+        p0.bindImage()
     }
 
     fun setDay(daily: List<Datum__>) {
@@ -52,7 +52,7 @@ class DailyAdapter : RecyclerView.Adapter<DailyAdapter.MyViewHolder>() {
             val formattedDate = dateFormat.format(date)
             time.text = formattedDate.toString()
         }
-        fun bindImage(days: Datum__){
+        fun bindImage(){
             if(summary.text.toString().contains("cloudy")){
              image.setImageResource(R.drawable.cloudy_icon)
             }
