@@ -7,11 +7,11 @@ import retrofit2.http.Path
 
 interface ApiInterface {
 
-    @GET("forecast/{key}/{latitude},{longtitude}")
+    @GET("forecast/{key}/{lat},{long}")
     fun getForecastData(
         @Path("key") key: String,
-        @Path("latitude") latitude: Double,
-        @Path("longtitude") longtitude: Double
+        @Path("lat") latitude: Double,
+        @Path("long") longtitude: Double
     ): Call<Weather>
 
 }

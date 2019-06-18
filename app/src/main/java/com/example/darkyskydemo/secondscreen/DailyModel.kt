@@ -3,8 +3,8 @@ package com.example.darkyskydemo.secondscreen
 import com.example.darkyskydemo.model.Weather
 import com.example.darkyskydemo.network.ApiClient
 import com.example.darkyskydemo.network.ApiClient.API_KEY
-import com.example.darkyskydemo.network.ApiClient.latitude
-import com.example.darkyskydemo.network.ApiClient.longtitude
+import com.example.darkyskydemo.network.ApiClient.lat
+import com.example.darkyskydemo.network.ApiClient.long
 import com.example.darkyskydemo.network.ApiInterface
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,7 +14,7 @@ class DailyModel:DailyContract.Model {
     override fun getData(OnFinishedListener: DailyContract.Model.OnFinishedListener) {
        val apiService=ApiClient.client!!.create(ApiInterface::class.java)
 
-        apiService.getForecastData(API_KEY, latitude, longtitude).enqueue(object : Callback<Weather>{
+        apiService.getForecastData(API_KEY, lat, long).enqueue(object : Callback<Weather>{
             override fun onFailure(call: Call<Weather>, t: Throwable) {
                OnFinishedListener.onFailure(t)
             }

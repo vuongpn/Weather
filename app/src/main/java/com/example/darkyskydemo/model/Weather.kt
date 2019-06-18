@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 class Weather {
 
-    @SerializedName("latitude")
+    @SerializedName("lat")
     @Expose
     var latitude: Double? = null
     @SerializedName("longitude")
