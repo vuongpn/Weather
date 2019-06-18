@@ -32,19 +32,13 @@ class GPSTracker(private val mContext: Context) : Service(), LocationListener {
     fun getLocation(): Location? {
         try {
             locationManager = mContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-            // getting GPS status
             isGPSEnabled = locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
-
-            // getting network status
             isNetworkEnabled = locationManager!!
                 .isProviderEnabled(LocationManager.NETWORK_PROVIDER)
 
             if (!isGPSEnabled && !isNetworkEnabled) {
-                // no network provider is enabled
             } else {
                 this.canGetLocation = true
-                // First get location from Network Provider
                 if (isNetworkEnabled) {
                     if (ActivityCompat.checkSelfPermission(
                             this,
