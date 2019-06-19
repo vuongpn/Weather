@@ -67,6 +67,9 @@ class DailyAdapter : RecyclerView.Adapter<DailyAdapter.MyViewHolder>() {
             if(summary.text.toString().contains("Clear")){
                 image.setImageResource(R.drawable.clear_day_icon)
             }
+            if(summary.text.toString().contains("drizzle")){
+                image.setImageResource(R.drawable.rain_icon)
+            }
         }
     }
 }
