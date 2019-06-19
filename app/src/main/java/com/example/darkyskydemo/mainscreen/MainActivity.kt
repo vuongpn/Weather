@@ -1,6 +1,7 @@
 package com.example.darkyskydemo.mainscreen
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
@@ -35,7 +36,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var image: ImageView
     private lateinit var currentimg: ImageView
     private var presenter: MainPresenter? = null
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         initUI()
         presenter = MainPresenter(this)
         presenter!!.requestData()
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
     @SuppressLint("MissingPermission")
@@ -62,12 +61,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         image = findViewById(R.id.forecastIcon)
         currentimg = findViewById(R.id.img)
         currentimg.setOnClickListener {
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location: Location? ->
-                    val LATITUDE = location?.latitude
-                    val LONGTITUDE = location?.longitude
-                }
-            Toast.makeText(this, "$long--$lat", Toast.LENGTH_LONG).show()
+           presenter!!.requestLocation()
         }
     }
 

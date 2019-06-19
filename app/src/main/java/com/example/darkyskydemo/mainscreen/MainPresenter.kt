@@ -5,6 +5,7 @@ import com.example.darkyskydemo.model.Weather
 class MainPresenter internal constructor(private var view: MainContract.View) : MainContract.Presenter,
     MainContract.Model.OnFinishedListener {
 
+
     private val model: MainContract.Model
 
     init {
@@ -22,6 +23,9 @@ class MainPresenter internal constructor(private var view: MainContract.View) : 
 
     override fun requestData() {
         model.getData(this)
+    }
+    override fun requestLocation() {
+        model.getLocation(this)
     }
 
 }

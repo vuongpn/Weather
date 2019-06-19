@@ -16,12 +16,13 @@ interface MainContract {
         }
 
         fun getData(onFinishedListener: OnFinishedListener)
-        fun getLocation()
+        fun getLocation(onFinishedListener: OnFinishedListener)
     }
 
     interface Presenter {
         fun onSuccess(weather: Weather)
         fun onFailure(t: Throwable)
         fun requestData()
+        fun requestLocation()
     }
 }

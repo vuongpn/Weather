@@ -10,8 +10,7 @@ interface ApiInterface {
     @GET("forecast/{key}/{lat},{long}")
     fun getForecastData(
         @Path("key") key: String,
-        @Path("lat") latitude: Double,
-        @Path("long") longtitude: Double
+        @Path("lat") latitude: Double?,
+        @Path("long") longtitude: Double?
     ): Call<Weather>
-
 }
