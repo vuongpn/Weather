@@ -36,11 +36,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var image: ImageView
     private lateinit var currentimg: ImageView
     private var presenter: MainPresenter? = null
+    companion object {
+        lateinit  var appContext: Context
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.darkyskydemo.R.layout.mainscreen)
         initUI()
+        MainActivity.appContext = applicationContext
         presenter = MainPresenter(this)
         presenter!!.requestData()
     }

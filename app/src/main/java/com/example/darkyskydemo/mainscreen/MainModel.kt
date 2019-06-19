@@ -1,10 +1,8 @@
 package com.example.darkyskydemo.mainscreen
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.location.Location
 import android.widget.Toast
-import com.example.darkyskydemo.MyApplication
 import com.example.darkyskydemo.model.Weather
 import com.example.darkyskydemo.network.ApiClient
 import com.example.darkyskydemo.network.ApiClient.API_KEY
@@ -19,7 +17,7 @@ import retrofit2.Response
 
 class MainModel : MainContract.Model {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private val context=MyApplication.appContext
+    private val context=MainActivity.appContext
     override fun getData(onFinishedListener: MainContract.Model.OnFinishedListener) {
 
         val apiService = ApiClient.client!!.create(ApiInterface::class.java)
@@ -46,7 +44,7 @@ class MainModel : MainContract.Model {
                 val LATITUDE = location?.latitude
                 val LONGTITUDE = location?.longitude
                 val apiLocation=ApiClient.client!!.create(ApiInterface::class.java)
-                Toast.makeText(context, "$long--$lat", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "$lat,$long", Toast.LENGTH_LONG).show()
              apiLocation.getForecastData(API_KEY, LATITUDE, LONGTITUDE).enqueue(object:Callback<Weather>{
                  override fun onFailure(call: Call<Weather>, t: Throwable) {
                      onFinishedListener.onFailure(t)
