@@ -3,6 +3,7 @@ package com.example.darkyskydemo.mainscreen
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.location.Location
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -11,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.darkyskydemo.R
+import com.example.darkyskydemo.databinding.MainscreenBinding
 import com.example.darkyskydemo.model.Weather
 import com.example.darkyskydemo.network.ApiClient.lat
 import com.example.darkyskydemo.network.ApiClient.long
@@ -30,11 +32,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var tv6: TextView
     private lateinit var tv7: TextView
     private lateinit var tv8: TextView
-    private lateinit var tv9: TextView
     private lateinit var tv10: TextView
     private lateinit var layout: SwipeRefreshLayout
     private lateinit var image: ImageView
     private lateinit var currentimg: ImageView
+    lateinit var binding:MainscreenBinding
     private var presenter: MainPresenter? = null
     companion object {
         lateinit  var appContext: Context
@@ -42,9 +44,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.darkyskydemo.R.layout.mainscreen)
+        binding=DataBindingUtil.setContentView(this, R.layout.mainscreen)
         initUI()
-        MainActivity.appContext = applicationContext
+        appContext = applicationContext
         presenter = MainPresenter(this)
         presenter!!.requestData()
     }
@@ -59,7 +61,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         tv6 = findViewById(R.id.uvIndexTxt)
         tv7 = findViewById(R.id.chanceOfRainTtxt)
         tv8 = findViewById(R.id.forecastSummaryTxt)
-        tv9 = findViewById(R.id.localityNameTxt)
         tv10 = findViewById(R.id.localityTimeTxt)
         layout = findViewById(R.id.swiperefresh)
         image = findViewById(R.id.forecastIcon)
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         tv7.text = weather.currently!!.cloudCover!!
             .toDouble().toString()
         tv8.text = weather.currently!!.summary
-        tv9.text = weather.timezone
+        binding.localityNameTxt.text=weather.timezone
         val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.US)
         val formattedDate = dateFormat.format(date)
         tv10.text = formattedDate
